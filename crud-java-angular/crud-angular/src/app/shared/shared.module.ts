@@ -3,15 +3,11 @@ import { CommonModule } from '@angular/common';
 import { ErrorDialogComponent } from './components/error-dialog/error-dialog.component';
 import { AppMaterialModule } from './app-material/app-material.module';
 
-
-
 @NgModule({
-  declarations: [
-    ErrorDialogComponent
-  ],
+  declarations: [ErrorDialogComponent],
   imports: [
     CommonModule,
-    AppMaterialModule
+    AppMaterialModule 
   ],
   exports: [ErrorDialogComponent]
 })
