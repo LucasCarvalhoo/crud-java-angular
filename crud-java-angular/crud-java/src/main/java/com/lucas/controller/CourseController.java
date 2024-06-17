@@ -4,10 +4,8 @@ import com.lucas.model.Course;
 import com.lucas.repository.CourseRepository;
 import lombok.AllArgsConstructor;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController // end-point
@@ -20,5 +18,10 @@ public class CourseController {
     @GetMapping
     public @ResponseBody List<Course> list(){
         return courseRepository.findAll();
+    }
+
+    @PostMapping
+    public void create(@RequestBody Course course){
+        courseRepository.save(course);
     }
 }
