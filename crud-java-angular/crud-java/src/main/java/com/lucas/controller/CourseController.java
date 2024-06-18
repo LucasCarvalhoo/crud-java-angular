@@ -27,7 +27,7 @@ public class CourseController {
         //procura pelo id no repositorio
         return courseRepository.findById(id)
                 //se achar retorna 200 ok
-                .map(record -> ResponseEntity.ok().body(record))
+                .map(recordFound -> ResponseEntity.ok().body(recordFound))
                 //se nao achar retorna 404 not found
                 .orElse(ResponseEntity.notFound().build());
     }
@@ -39,5 +39,16 @@ public class CourseController {
         //return ResponseEntity.status(HttpStatus.CREATED.body(courseRepository.save(course));
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Course> update(@PathVariable Long id, @RequestBody Course course){
+        return courseRepository.findById(id)
+                .map(recordFound -> {
+                    recordFound.setName(course.getName());
+                    recordFound.setCategory(course.getCategory());
+                    Course updated = courseRepository.save(recordFound);
+                    return ResponseEntity.ok().body(updated);
+                })
+                .orElse(ResponseEntity.notFound().build());
+    }
 
 }
