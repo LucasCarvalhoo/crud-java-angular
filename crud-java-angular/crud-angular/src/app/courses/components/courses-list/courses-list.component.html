@@ -11,7 +11,7 @@
       <mat-cell  *matCellDef="let course">{{ course.category }}
         <mat-icon aria-hidden="false" aria-label="Categoria do Curso">{{ course.category | category }}</mat-icon>
       </mat-cell>
-      
+
     </ng-container>
 
     <!-- Actions Column -->
@@ -24,7 +24,7 @@
 
         <mat-cell class="action-column" *matCellDef="let course">
           <button mat-icon-button color="primary" aria-label="Editar Curso">
-            <mat-icon>edit</mat-icon>
+            <mat-icon (click)="onEdit(course)">edit</mat-icon>
           </button>
 
           <button mat-icon-button color="warn" aria-label="Remover Curso">
