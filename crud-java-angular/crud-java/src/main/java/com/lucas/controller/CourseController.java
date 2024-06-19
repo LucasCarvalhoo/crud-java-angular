@@ -53,6 +53,7 @@ public class CourseController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id){
+        // retorna um ResponseEntity http 204
         return courseRepository.findById(id)
                 .map(recordFound -> {
                    courseRepository.deleteById(id);
