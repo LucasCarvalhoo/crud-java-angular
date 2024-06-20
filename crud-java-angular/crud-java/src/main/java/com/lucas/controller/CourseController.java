@@ -1,49 +1,62 @@
 package com.lucas.controller;
 
+import java.util.List;
+
 import com.lucas.model.Course;
 import com.lucas.repository.CourseRepository;
+
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
-import lombok.AllArgsConstructor;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.List;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
-@RestController // end-point
-@RequestMapping("api/courses")
-@AllArgsConstructor // injeção de dependencia
+import lombok.AllArgsConstructor;
+
+@Validated
+@RestController
+@RequestMapping("/api/courses")
+@AllArgsConstructor
 public class CourseController {
-
-    private CourseRepository courseRepository;
-
+    private final CourseRepository courseRepository;
+    // @RequestMapping(method = RequestMethod.GET)
     @GetMapping
-    public @ResponseBody List<Course> list(){
+    public @ResponseBody List<Course> list() {
         return courseRepository.findAll();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Course> findById(@PathVariable @NotNull @Positive Long id){
-        //procura pelo id no repositorio
+    public ResponseEntity<Course> findById(@PathVariable @NotNull @Positive Long id) {
         return courseRepository.findById(id)
-                //se achar retorna 200 ok
                 .map(recordFound -> ResponseEntity.ok().body(recordFound))
-                //se nao achar retorna 404 not found
                 .orElse(ResponseEntity.notFound().build());
     }
-
+    // @RequestMapping(method = RequestMethod.POST)
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
-    public Course create(@RequestBody @Valid Course course){
+    public Course create(@RequestBody @Valid Course course) {
 
+        // System.out.println(course.getName());
         return courseRepository.save(course);
+        // return ResponseEntity.status(HttpStatus.CREATED)
+        // .body(courseRepository.save(course));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Course> update(@PathVariable @NotNull @Positive Long id, @RequestBody @Valid Course course){
+    public ResponseEntity<Course> update(@PathVariable @NotNull @Positive Long id,
+                                         @RequestBody @Valid Course course) {
         return courseRepository.findById(id)
                 .map(recordFound -> {
                     recordFound.setName(course.getName());
@@ -55,14 +68,12 @@ public class CourseController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable @NotNull @Positive Long id){
-        // retorna um ResponseEntity http 204
+    public ResponseEntity<Void> delete(@PathVariable @NotNull @Positive Long id) {
         return courseRepository.findById(id)
                 .map(recordFound -> {
-                   courseRepository.deleteById(id);
+                    courseRepository.deleteById(id);
                     return ResponseEntity.noContent().<Void>build();
                 })
                 .orElse(ResponseEntity.notFound().build());
     }
-
 }
