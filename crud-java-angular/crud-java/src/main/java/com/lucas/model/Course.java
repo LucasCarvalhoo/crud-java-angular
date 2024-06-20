@@ -10,12 +10,13 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLRestriction;
+import org.hibernate.annotations.Where;
 
 
 @Entity // estabelece uma relação entre entidade e tabela de mesmo nome no banco de dados
 @Data
-//@SQLDelete(sql = "UPDATE Course SET status = 'Inativo' WHERE id=?")
-//@SQLRestriction("status <> 'Inativo'")
+@SQLDelete(sql = "UPDATE Course SET status = 'Inativo' WHERE id=?")
+@Where(clause = "status = 'Ativo'")
 public class Course {
 
     @Id
@@ -35,9 +36,9 @@ public class Course {
     @Column(name = "categoria", length = 20, nullable = false)
     private String category;
 
-//    @NotNull
-//    @Size(max = 10)
-//    @Pattern(regexp = "Ativo|Inativo")
-//    @Column(length = 20, nullable = false)
-//    private String status = "Ativo";
+    @NotNull
+    @Size(max = 10)
+    @Pattern(regexp = "Ativo|Inativo")
+    @Column(length = 20, nullable = false)
+    private String status = "Ativo";
 }
