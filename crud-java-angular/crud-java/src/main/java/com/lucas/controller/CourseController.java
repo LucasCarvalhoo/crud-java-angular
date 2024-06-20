@@ -3,7 +3,6 @@ package com.lucas.controller;
 import java.util.List;
 
 import com.lucas.model.Course;
-import com.lucas.repository.CourseRepository;
 
 import com.lucas.service.CourseService;
 import jakarta.validation.Valid;
@@ -40,10 +39,8 @@ public class CourseController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Course> findById(@PathVariable @NotNull @Positive Long id) {
-        return courseService.findById(id)
-                .map(recordFound -> ResponseEntity.ok().body(recordFound))
-                .orElse(ResponseEntity.notFound().build());
+    public Course findById(@PathVariable @NotNull @Positive Long id) {
+        return courseService.findById(id);
     }
     // @RequestMapping(method = RequestMethod.POST)
     @PostMapping

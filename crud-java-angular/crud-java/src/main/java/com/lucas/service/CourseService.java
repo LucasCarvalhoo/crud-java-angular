@@ -1,5 +1,6 @@
 package com.lucas.service;
 
+import com.lucas.exception.RecordNotFoundException;
 import com.lucas.model.Course;
 import com.lucas.repository.CourseRepository;
 import jakarta.validation.Valid;
@@ -29,8 +30,8 @@ public class CourseService {
     }
 
     // Optional -> maneira de transmitir que o tipo de retorno pode ou não haver um valor, sem usar null
-    public Optional<Course> findById(@PathVariable @NotNull @Positive Long id) {
-        return courseRepository.findById(id);
+    public Course findById(@PathVariable @NotNull @Positive Long id) {
+        return courseRepository.findById(id).orElseThrow(() -> new RecordNotFoundException(id));
     }
 
     public Course create(@RequestBody @Valid Course course) {
