@@ -1,6 +1,7 @@
 package com.lucas.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -40,5 +41,6 @@ public class Course {
     @Size(max = 10)
     @Pattern(regexp = "Ativo|Inativo")
     @Column(length = 20, nullable = false)
+    //@JsonIgnore // ignora e não devolve o status na resposta, caso não tenha um DTO
     private String status = "Ativo";
 }
