@@ -17,7 +17,7 @@ import org.hibernate.annotations.Where;
 @Entity // estabelece uma relação entre entidade e tabela de mesmo nome no banco de dados
 @Data
 @SQLDelete(sql = "UPDATE Course SET status = 'Inativo' WHERE id=?")
-@Where(clause = "status = 'Ativo")
+@Where(clause = "status = 'Ativo'")
 public class Course {
 
     @Id

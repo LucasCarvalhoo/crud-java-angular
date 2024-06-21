@@ -22,7 +22,6 @@ public class CourseMapper {
         //no dto não tem alteração
         course.setName(courseDTO.name());
         course.setCategory(courseDTO.category());
-        course.setStatus("Ativo");
         return course;
     }
 }
