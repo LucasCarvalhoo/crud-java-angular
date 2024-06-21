@@ -1,13 +1,14 @@
 package com.lucas.DTO.mapper;
 
 import com.lucas.DTO.CourseDTO;
+import com.lucas.enums.Category;
 import com.lucas.model.Course;
 import org.springframework.stereotype.Component;
 
 @Component
 public class CourseMapper {
     public CourseDTO toDTO(Course course){
-        return new CourseDTO(course.getId(), course.getName(), course.getCategory());
+        return new CourseDTO(course.getId(), course.getName(), "Front-end");
     }
 
     public Course toEntity(CourseDTO courseDTO){
@@ -21,7 +22,7 @@ public class CourseMapper {
         }
         //no dto não tem alteração
         course.setName(courseDTO.name());
-        course.setCategory(courseDTO.category());
+        course.setCategory(Category.FRONT_END);
         return course;
     }
 }

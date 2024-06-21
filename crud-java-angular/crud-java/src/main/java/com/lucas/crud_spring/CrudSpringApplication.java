@@ -1,5 +1,6 @@
 package com.lucas.crud_spring;
 
+import com.lucas.enums.Category;
 import com.lucas.model.Course;
 import com.lucas.repository.CourseRepository;
 import org.springframework.boot.CommandLineRunner;
@@ -25,7 +26,7 @@ public class CrudSpringApplication {
 
 			Course c = new Course();
 			c.setName("Angular com Spring");
-			c.setCategory("Front-end");
+			c.setCategory(Category.FRONT_END);
 
 			courseRepository.save(c);
 		};
