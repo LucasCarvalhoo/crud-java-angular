@@ -2,9 +2,11 @@ package com.lucas.enums.converters;
 
 import com.lucas.enums.Category;
 import jakarta.persistence.AttributeConverter;
+import jakarta.persistence.Converter;
 
 import java.util.stream.Stream;
 
+@Converter(autoApply = true)
 public class CategoryConverters implements AttributeConverter<Category, String> {
 
     @Override
