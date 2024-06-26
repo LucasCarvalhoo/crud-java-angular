@@ -24,7 +24,6 @@ public class CrudSpringApplication {
 	CommandLineRunner initDatabase(CourseRepository courseRepository){
 		return args -> {
 			courseRepository.deleteAll();
-
 			Course c = new Course();
 			c.setName("Angular com Spring");
 			c.setCategory(Category.FRONT_END);
@@ -34,6 +33,12 @@ public class CrudSpringApplication {
 			l.setYoutubeUrl("watch?v=1");
 			l.setCourse(c);
 			c.getLessons().add(l);
+
+			Lesson l1 = new Lesson();
+			l1.setName("Introdução");
+			l1.setYoutubeUrl("watch?v=2");
+			l1.setCourse(c);
+			c.getLessons().add(l1);
 
 			courseRepository.save(c);
 		};

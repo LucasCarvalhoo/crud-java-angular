@@ -1,14 +1,24 @@
 package com.lucas.DTO.mapper;
 
 import com.lucas.DTO.CourseDTO;
+import com.lucas.DTO.LessonDTO;
 import com.lucas.enums.Category;
 import com.lucas.model.Course;
+import com.lucas.model.Lesson;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class CourseMapper {
     public CourseDTO toDTO(Course course){
-        return new CourseDTO(course.getId(), course.getName(), course.getCategory().getValue());
+        //mapear id, name e youtubeUrl e jogar tudo em uma lista
+        List<LessonDTO> lessons = course.getLessons()
+                .stream()
+                .map(lesson -> new LessonDTO(lesson.getId(), lesson.getName(), lesson.getYoutubeUrl()))
+                .collect(Collectors.toList());
+        return new CourseDTO(course.getId(), course.getName(), course.getCategory().getValue(), lessons);
     }
 
     public Course toEntity(CourseDTO courseDTO){
