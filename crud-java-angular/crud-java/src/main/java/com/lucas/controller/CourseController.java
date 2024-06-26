@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Validated
 @RestController
-@RequestMapping("/api/courses")
+@RequestMapping("/api/courses/") // lembrar de fazer alteração no front
 public class CourseController {
     private final CourseService courseService;
 

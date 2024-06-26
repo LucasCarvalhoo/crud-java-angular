@@ -15,6 +15,9 @@ import lombok.Data;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Entity // estabelece uma relação entre entidade e tabela de mesmo nome no banco de dados
 @Data
@@ -45,4 +48,8 @@ public class Course {
     @Convert(converter = StatusConverter.class)
     //@JsonIgnore // ignora e não devolve o status na resposta, caso não tenha um DTO
     private Status status = Status.ACTIVE;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "course")
+    //@JoinColumn(name = "course_id")
+    private List<Lesson> lessons = new ArrayList<>();
 }
