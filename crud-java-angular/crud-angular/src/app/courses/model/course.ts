@@ -1,7 +1,7 @@
-import { lesson } from './lesson';
+import { Lesson } from './lesson';
 export interface Course {
     _id: string;
     name: string;
     category: string;
-    lesson?: lesson[]; // Lição é opcional
+    lessons: Lesson[]; // Lição é opcional
   }

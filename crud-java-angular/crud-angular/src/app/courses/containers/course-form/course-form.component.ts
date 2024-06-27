@@ -34,6 +34,7 @@ export class CourseFormComponent implements OnInit {
       name: course.name,
       category: course.category
     })
+    console.log(course);
   }
   onSubmit() {
     this.service.save(this.form.value)

@@ -1,4 +1,4 @@
-export interface lesson {
+export interface Lesson {
   id: string;
   name: string;
   youtubeUrl: string;
