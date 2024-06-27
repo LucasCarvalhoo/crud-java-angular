@@ -27,6 +27,10 @@
         </button>
       </mat-toolbar>
 
+      <mat-error *ngIf="isFormArrayRequired()" class="form-array-error">
+        Adicione pelo menos uma aula.
+      </mat-error>
+
       <table style="width: 100%;" formArrayName="lessons" *ngFor="let lesson of getLessonsFormArray(); let i = index">
         <tr [formGroupName]="i">
           <td style="width: 65%;">
