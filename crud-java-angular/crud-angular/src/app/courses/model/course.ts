@@ -3,5 +3,5 @@ export interface Course {
     _id: string;
     name: string;
     category: string;
-    lessons: Lesson[]; // Lição é opcional
+    lessons?: Lesson[]; // Lição é opcional
   }
