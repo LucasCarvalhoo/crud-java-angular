@@ -1,7 +1,7 @@
 import { Lesson } from './../../model/lesson';
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
+import { FormGroup, NonNullableFormBuilder, UntypedFormArray, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { ActivatedRoute } from '@angular/router';
@@ -38,6 +38,20 @@ export class CourseFormComponent implements OnInit {
       name: [lesson.name],
       youtubeUrl: [lesson.youtubeUrl]
     })
+  }
+
+  getLessonsFormArray(){
+    return (<UntypedFormArray>this.form.get('lessons'))?.controls;
+  }
+
+  addNewLesson(){
+    const lessons = this.form.get('lessons') as UntypedFormArray // força a tipagem
+    lessons.push(this.createLesson());
+  }
+
+  removeLesson(index: number){
+    const lessons = this.form.get('lessons') as UntypedFormArray
+    lessons.removeAt(index);
   }
 
   constructor(private formBuilder: NonNullableFormBuilder,
