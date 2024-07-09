@@ -8,7 +8,10 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
 import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
@@ -30,6 +33,13 @@ public class CourseService {
     public List<CourseDTO> list() {
         return courseRepository.findAll()
                 .stream()
+                .map(courseMapper::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    public List<CourseDTO> getLimitedCourses(int limit) {
+        Pageable pageable = PageRequest.of(0, limit); // Página 0, com tamanho de 'limit' registros
+        return courseRepository.findAll(pageable).getContent().stream()
                 .map(courseMapper::toDTO)
                 .collect(Collectors.toList());
     }
