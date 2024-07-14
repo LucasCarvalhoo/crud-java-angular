@@ -12,7 +12,7 @@ import java.util.List;
 
 @Repository // conexão com o banco de dados
 public interface CourseRepository extends JpaRepository<Course, Long> {
-    //List<Course> findAll(int limit);
+    //List<Course> findLimited(int limit);
 
     Page<Course> findAll(Pageable pageable);
 }

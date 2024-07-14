@@ -56,13 +56,4 @@ public class CourseController {
         return courseService.getLimitedCourses(limit);
     }
 
-//    @GetMapping("/limit")
-//    public ResponseEntity<List<CourseDTO>> getLimitedCourses(@RequestParam(defaultValue = "5") int limit) {
-//        try {
-//            List<CourseDTO> courses = courseService.getLimitedCourses(limit);
-//            return ResponseEntity.ok(courses);
-//        } catch (Exception e) {
-//            return ResponseEntity.status(500).body(null);
-//        }
-//    }
 }
