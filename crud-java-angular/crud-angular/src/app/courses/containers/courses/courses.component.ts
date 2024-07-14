@@ -37,7 +37,7 @@ export class CoursesComponent implements OnInit {
   }
 
   refresh() {
-    this.courses$ = this.coursesService.list()
+    this.courses$ = this.coursesService.loadByIdAndLimit(5)
       .pipe(
         catchError(error => {
           this.onError("Erro ao carregar cursos.")

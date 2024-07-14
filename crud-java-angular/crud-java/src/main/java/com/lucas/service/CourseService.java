@@ -8,6 +8,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,7 @@ import java.util.stream.Collectors;
 @Service
 public class CourseService {
 
+    @Autowired
     private final CourseRepository courseRepository;
     private final CourseMapper courseMapper;
 
@@ -37,8 +39,14 @@ public class CourseService {
                 .collect(Collectors.toList());
     }
 
-    public List<CourseDTO> getLimitedCourses(int limit) {
-        Pageable pageable = PageRequest.of(0, limit); // Página 0, com tamanho de 'limit' registros
+//    public List<CourseDTO> getLimitedCourses(int limit) {
+//        return courseRepository.findAll(limit).stream()
+//                .map(courseMapper::toDTO)
+//                .collect(Collectors.toList());
+//    }
+
+    public List<CourseDTO> getLimitedCourses(int limit){
+        Pageable pageable = PageRequest.of(0, limit);
         return courseRepository.findAll(pageable).getContent().stream()
                 .map(courseMapper::toDTO)
                 .collect(Collectors.toList());
