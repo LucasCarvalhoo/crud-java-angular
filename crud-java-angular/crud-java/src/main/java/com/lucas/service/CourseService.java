@@ -1,6 +1,7 @@
 package com.lucas.service;
 
 import com.lucas.DTO.CourseDTO;
+import com.lucas.DTO.LessonDTO;
 import com.lucas.DTO.mapper.CourseMapper;
 import com.lucas.exception.RecordNotFoundException;
 import com.lucas.repository.CourseRepository;
@@ -40,10 +41,30 @@ public class CourseService {
     }
 
 
-    public List<CourseDTO> getLimitedCourses(int limit){
+//    public List<CourseDTO> getLimitedCourses(int limit){
+//        Pageable pageable = PageRequest.of(0, limit);
+//        return courseRepository.findAll(pageable).getContent().stream()
+//                .map(courseMapper::toDTO)
+//                .collect(Collectors.toList());
+//    }
+
+    public List<CourseDTO> getLimitedCourses(int limit) {
         Pageable pageable = PageRequest.of(0, limit);
         return courseRepository.findAll(pageable).getContent().stream()
-                .map(courseMapper::toDTO)
+                .map(course -> {
+                    // Transformando as lições se necessário
+                    List<LessonDTO> lessonDTOs = course.getLessons().stream()
+                            .map(lesson -> new LessonDTO(lesson.getId(), lesson.getName(), lesson.getYoutubeUrl())) // Ajuste conforme a estrutura do LessonDTO
+                            .collect(Collectors.toList());
+
+                    // Criando o CourseDTO
+                    return new CourseDTO(
+                            course.getId(),
+                            course.getName(),
+                            course.getCategory().getValue(),
+                            lessonDTOs
+                    );
+                })
                 .collect(Collectors.toList());
     }
 
