@@ -50,7 +50,7 @@ public class CourseService {
 
     public List<CourseDTO> getLimitedCourses(int limit) {
         Pageable pageable = PageRequest.of(0, limit);
-        return courseRepository.findAll(pageable).getContent().stream()
+        return courseRepository.courseLimit(pageable).getContent().stream()
                 .map(course -> {
                     // Transformando as lições se necessário
                     List<LessonDTO> lessonDTOs = course.getLessons().stream()
