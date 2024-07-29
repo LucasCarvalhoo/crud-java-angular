@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.lucas.DTO.CourseDTO;
 
+import com.lucas.model.Course;
 import com.lucas.service.CourseService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -32,6 +33,12 @@ public class CourseController {
     public CourseDTO findById(@PathVariable @NotNull @Positive Long id) {
         return courseService.findById(id);
     }
+
+    @GetMapping("/{name}")
+    public List<Course> findByName(@PathVariable @NotNull @Positive String name) {
+        return courseService.findByName(name);
+    }
+
     // @RequestMapping(method = RequestMethod.POST)
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)

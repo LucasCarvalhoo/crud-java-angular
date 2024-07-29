@@ -4,6 +4,7 @@ import com.lucas.DTO.CourseDTO;
 import com.lucas.DTO.LessonDTO;
 import com.lucas.DTO.mapper.CourseMapper;
 import com.lucas.exception.RecordNotFoundException;
+import com.lucas.model.Course;
 import com.lucas.repository.CourseRepository;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -65,6 +66,10 @@ public class CourseService {
     public CourseDTO findById(@NotNull @Positive Long id) {
         return courseRepository.findById(id).map(courseMapper::toDTO)
                 .orElseThrow(() -> new RecordNotFoundException(id));
+    }
+
+    public List<Course> findByName(@NotNull @Positive String name) {
+        return courseRepository.findByName(name);
     }
 
     public CourseDTO create(@Valid @NotNull CourseDTO course) {
