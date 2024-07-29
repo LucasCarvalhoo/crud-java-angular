@@ -55,5 +55,4 @@ public class CourseController {
     public List<CourseDTO> getLimitedCourses(@RequestParam(defaultValue = "5") int limit) {
         return courseService.getLimitedCourses(limit);
     }
-
 }

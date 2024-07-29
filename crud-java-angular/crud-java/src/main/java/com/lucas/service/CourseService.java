@@ -41,13 +41,6 @@ public class CourseService {
     }
 
 
-//    public List<CourseDTO> getLimitedCourses(int limit){
-//        Pageable pageable = PageRequest.of(0, limit);
-//        return courseRepository.findAll(pageable).getContent().stream()
-//                .map(courseMapper::toDTO)
-//                .collect(Collectors.toList());
-//    }
-
     public List<CourseDTO> getLimitedCourses(int limit) {
         Pageable pageable = PageRequest.of(0, limit);
         return courseRepository.courseLimit(pageable).getContent().stream()
